@@ -1,0 +1,181 @@
+[
+  {
+    "id": "TC-AOPS-001",
+    "ac": "AC1",
+    "type": "auto",
+    "text": "Given a valid AlertOps API key header and open alerts exist, When alertops_list_alerts is called with no filters, Then it returns a paginated 'alerts' array (alert_id, status, priority, owner, created_date) capped at the default page size, with a has_more flag.",
+    "tests": [
+      "tests/test_tools.py::test_list_alerts_returns_paginated_results"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_list_alerts_returns_paginated_results PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-002",
+    "ac": "AC2",
+    "type": "auto",
+    "text": "Given status=Open and priority=Critical filters, When alertops_list_alerts is called, Then only alerts matching both filters are returned.",
+    "tests": [
+      "tests/test_tools.py::test_list_alerts_filters_by_status_and_priority"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_list_alerts_filters_by_status_and_priority PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-003",
+    "ac": "AC3",
+    "type": "auto",
+    "text": "Given an existing alert_id, When alertops_get_alert is called, Then the full alert detail (status, owner, escalation_policy, within_sla) is returned.",
+    "tests": [
+      "tests/test_tools.py::test_get_alert_returns_full_detail"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_get_alert_returns_full_detail PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-004",
+    "ac": "AC3",
+    "type": "auto",
+    "text": "Given an alert_id that does not exist, When alertops_get_alert is called, Then a structured not_found error is returned, not a raw exception.",
+    "tests": [
+      "tests/test_tools.py::test_get_alert_not_found_returns_structured_error"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_get_alert_not_found_returns_structured_error PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-005",
+    "ac": "AC4",
+    "type": "auto",
+    "text": "Given groups exist in the account, When alertops_list_groups is called with no filter, Then it returns group_id and group_name for each group, paginated.",
+    "tests": [
+      "tests/test_tools.py::test_list_groups_returns_paginated_results"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_list_groups_returns_paginated_results PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-006",
+    "ac": "AC4",
+    "type": "auto",
+    "text": "Given a search term, When alertops_list_groups is called with that search value, Then only groups whose name matches are returned.",
+    "tests": [
+      "tests/test_tools.py::test_list_groups_search_filters_by_name"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_list_groups_search_filters_by_name PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-007",
+    "ac": "AC5",
+    "type": "auto",
+    "text": "Given a group_id with members, When alertops_get_group_members is called, Then each member's name, member_type, and roles are returned.",
+    "tests": [
+      "tests/test_tools.py::test_get_group_members_returns_roles"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_get_group_members_returns_roles PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-008",
+    "ac": "AC5",
+    "type": "auto",
+    "text": "Given a group_id with no members, When alertops_get_group_members is called, Then an empty members list is returned, not an error.",
+    "tests": [
+      "tests/test_tools.py::test_get_group_members_empty_group_returns_empty_list"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_get_group_members_empty_group_returns_empty_list PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-009",
+    "ac": "AC6",
+    "type": "auto",
+    "text": "Given at least one group has an on-call member right now, When alertops_get_oncall_now is called with no group_id, Then it returns on-call members for every group.",
+    "tests": [
+      "tests/test_tools.py::test_oncall_now_without_group_returns_all_groups"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_oncall_now_without_group_returns_all_groups PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-010",
+    "ac": "AC6",
+    "type": "auto",
+    "text": "Given a specific group_id, When alertops_get_oncall_now is called with that group_id, Then only that group's on-call members are returned.",
+    "tests": [
+      "tests/test_tools.py::test_oncall_now_with_group_id_filters_to_one_group"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_oncall_now_with_group_id_filters_to_one_group PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-011",
+    "ac": "AC7",
+    "type": "auto",
+    "text": "Given a group_id and a start/end date within 3 months, When alertops_get_group_schedule is called, Then the schedule rotation entries covering that window are returned.",
+    "tests": [
+      "tests/test_tools.py::test_group_schedule_returns_entries_in_range"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_group_schedule_returns_entries_in_range PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-012",
+    "ac": "AC7",
+    "type": "manual",
+    "text": "Given a date range exceeding AlertOps' 3-month schedule limit, When alertops_get_group_schedule is called, Then a structured invalid_argument error is returned before any call to AlertOps.",
+    "steps": [
+      "Call alertops_get_group_schedule with an end_date more than 3 months after start_date against a real AlertOps account",
+      "Observe whether AlertOps' own API returns a 400 for the out-of-range window, or silently truncates/ignores the excess range"
+    ],
+    "expect": "Tool returns a structured invalid_argument error explaining the 3-month limit before calling AlertOps (client-side pre-check); confirming AlertOps' own upstream rejection shape needs a live account to compare against",
+    "result": "blocked",
+    "evidence": "Needs a real AlertOps vendor account; not available to this pipeline. Per vendor-mcp-development SOP, missing a test account does not block delivery to INT. Client-side half verified: tests/test_tools.py::test_group_schedule_rejects_window_over_three_months PASSED (2026-11-02) -- confirms the tool returns invalid_argument and never calls AlertOps for an out-of-range window. Only AlertOps' own upstream rejection shape remains unverified."
+  },
+  {
+    "id": "TC-AOPS-013",
+    "ac": "AC8",
+    "type": "auto",
+    "text": "Given a request with no X-AlertOps-Api-Key header, When any tool is called, Then the server returns 401 with a body listing the required header, and makes no call to AlertOps.",
+    "tests": [
+      "tests/test_middleware.py::test_missing_credential_header_returns_401"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_missing_credential_header_returns_401 PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-014",
+    "ac": "AC8",
+    "type": "auto",
+    "text": "Given AlertOps returns 401 for an invalid API key, When any tool is called, Then the tool returns the structured error envelope with code=unauthorized, not a raw exception.",
+    "tests": [
+      "tests/test_tools.py::test_upstream_unauthorized_maps_to_structured_error"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_upstream_unauthorized_maps_to_structured_error PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-015",
+    "ac": "AC8",
+    "type": "auto",
+    "text": "Given AlertOps returns 429 or a 5xx, When any tool is called, Then the tool retries with backoff within the 120s budget and, if still failing, returns code=rate_limited or code=upstream_error respectively.",
+    "tests": [
+      "tests/test_tools.py::test_upstream_rate_limited_maps_after_retries_exhausted",
+      "tests/test_tools.py::test_upstream_server_error_maps_to_upstream_error"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_upstream_rate_limited_maps_after_retries_exhausted, test_upstream_server_error_maps_to_upstream_error PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  },
+  {
+    "id": "TC-AOPS-016",
+    "ac": "AC9",
+    "type": "auto",
+    "text": "Given two concurrent requests carry different X-AlertOps-Api-Key header values, When both call alertops_list_alerts at the same time, Then each response only reflects its own header's AlertOps account, with no cross-request state leakage.",
+    "tests": [
+      "tests/test_middleware.py::test_concurrent_requests_do_not_cross_tenant_credentials"
+    ],
+    "result": "pass",
+    "evidence": "uv run pytest -v (2026-11-02, worktree alertops-mcp-PRD-21220, dev/PRD-21220): test_concurrent_requests_do_not_cross_tenant_credentials PASSED. Full suite: 21 passed in 6.40s (see docs/tickets/PRD-21220.md Self-test section for the full transcript)."
+  }
+]

@@ -1,0 +1,11 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Local pipeline tooling state (mb-ticket-pipeline tdd.py), not part of the service.
+.tdd/
+gate-selftest.json
